@@ -8,7 +8,7 @@ const DATABASE_URL = process.env.DATABASE_URL || 'sqlite:auth:';
 const sequelize = new Sequelize(DATABASE_URL, {
   dialectOptions: {
     ssl: {
-      require: false,
+      require: true,
       rejectUnauthorized: false,
     },
   },
