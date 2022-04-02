@@ -3,9 +3,9 @@
 const userModel = require('./users.js');
 const { Sequelize, DataTypes } = require('sequelize');
 
-const DATABASE_URL = process.env.DATABASE_URL || 'sqlite:auth:';
+const DATABASE_URL_TEST = process.env.DATABASE_URL_TEST || 'sqlite:auth:';
 
-const sequelize = new Sequelize(DATABASE_URL, {
+const sequelize = new Sequelize(DATABASE_URL_TEST, {
   dialectOptions: {
     ssl: {
       require: true,
