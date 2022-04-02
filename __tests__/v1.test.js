@@ -6,28 +6,6 @@ const request = supertest(server);
 const { db, posts } = require('../src/models');
 const {users, authDb} = require('../src/auth/models');
 
-let testUserData = {
-  admin: {
-    username: 'admin',
-    password: 'password',
-    role: 'admin',
-  },
-  writer: {
-    username: 'writer',
-    password: 'password',
-    role: 'writer',
-  },
-  editor: {
-    username: 'editor',
-    password: 'password',
-    role: 'editor',
-  },
-  user: {
-    username: 'user',
-    password: 'password',
-    role: 'user',
-  },
-};
 
 const testUsers = [];
 
@@ -77,24 +55,15 @@ async function buildUsers() {
 }
 
 describe('REST API', () => {
-//   test('allow user to create account',  async () => { 
-//     testUser = await request.post('/signup').send({
-//       username: 'osknyo',
-//       password: 'password',
-//     });
-//     // console.log('token', testUser._body.user.token);
-//     expect(testUser.status).toEqual(201);
-//     expect(testUser.body.token).toBeTruthy();
-//   });
 
   test('REST GET ALL', async () => {
     let response = await request.get('/api/v1/posts').set('Authorization', `Bearer ${testUsers[0].token}`);
     expect(response.status).toEqual(200);
-    // expect(response.body[0].id).toEqual(1);
+    expect(response.body[0].id).toEqual(1);
   });
 
   test('REST GET ONE', async () => {
-    let response = await request.get('/api/v1/posts/1').set('Authorization', `Bearer ${testUser._body.user.token}`);
+    let response = await request.get('/api/v1/posts/1').set('Authorization', `Bearer ${testUsers[0].token}`);
     expect(response.status).toEqual(200);
     expect(response.body.id).toEqual(1);
   });
@@ -105,7 +74,7 @@ describe('REST API', () => {
       subject: 'Coding',
       content: 'I love coding, sometimes.',
       data: `Date of note: ${Date.now().toString()}`,
-    }).set('Authorization', `Bearer ${testUser.token}`);
+    }).set('Authorization', `Bearer ${testUsers[1].token}`);
     expect(response.status).toEqual(201);
     expect(response.body.subject).toEqual('Coding');
     expect(response.body.content).toEqual('I love coding, sometimes.');
@@ -115,13 +84,13 @@ describe('REST API', () => {
   test('REST PUT', async () => {
     let response = await request.put('/api/v1/posts/1').send({
       subject: 'Testing',
-    });
+    }).set('Authorization', `Bearer ${testUsers[2].token}`);
     expect(response.status).toEqual(200);
     expect(response.body.subject).toEqual('Testing');
   });
 
   test('REST DELETE', async () => {
-    let response = await request.delete('/api/v1/posts/1');
+    let response = await request.delete('/api/v1/posts/1').set('Authorization', `Bearer ${testUsers[3].token}`);
     expect(response.status).toEqual(200);
   });
 });

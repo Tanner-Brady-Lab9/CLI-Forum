@@ -20,11 +20,11 @@ router.param('model', (req, res, next) => {
 router.use(bearerAuth);
 
 // route will be ---- (/api/v1/posts)
-router.get('/:model',  authorize('user'), handleGetAll);
-router.get('/:model/:id',  authorize('user'), handleGetOne);
-router.post('/:model',  authorize('writer'), handleCreate);
-router.put('/:model/:id',  authorize('editor'), handleUpdate);
-router.delete('/:model/:id',  authorize('admin'), handleDelete);
+router.get('/:model',  authorize('read'), handleGetAll);
+router.get('/:model/:id', authorize('read'), handleGetOne);
+router.post('/:model',  authorize('create'), handleCreate);
+router.put('/:model/:id',  authorize('update'), handleUpdate);
+router.delete('/:model/:id',  authorize('delete'), handleDelete);
 
 async function handleGetAll(req, res) {
   try{
