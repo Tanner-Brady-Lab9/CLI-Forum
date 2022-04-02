@@ -5,7 +5,8 @@ module.exports = (capability) => {
   return (req, res, next) => {
 
     try {
-      if (req.user.capabilities.includes(capability)) {
+      console.log(req.users.capabilities, 'HELLLLLLLLLLLLLLLLLLLLLL');
+      if (req.users.capabilities.includes(capability)) {
         next();
       }
       else {
@@ -15,6 +16,6 @@ module.exports = (capability) => {
       next('Invalid Login');
     }
 
-  }
+  };
 
-}
+};
