@@ -24,10 +24,10 @@ const userModel = (sequelize, DataTypes) => {
       type: DataTypes.VIRTUAL,
       get() {
         const acl = {
-          user: ['read'],
-          writer: ['read', 'create'],
-          editor: ['read', 'create', 'update'],
-          admin: ['read', 'create', 'update', 'delete'],
+          user: ['read'], //user must be signed in to read forum posts (age verification?)
+          writer: ['read', 'create'], //user thats verified by the admin
+          editor: ['read', 'create', 'update'], //forum moderator
+          admin: ['read', 'create', 'update', 'delete'], //owner of board
         };
         return acl[this.role];
       },

@@ -5,11 +5,7 @@ const { server } = require('../src/server');
 const request = supertest(server);
 const { db, posts } = require('../src/models');
 const {users, authDb} = require('../src/auth/models');
-
-
 const testUsers = [];
-
-
 beforeAll(async () => {
   await authDb.sync();
   await db.sync();
